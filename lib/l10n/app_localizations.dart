@@ -110,6 +110,12 @@ abstract class AppLocalizations {
   /// **'Add Course'**
   String get addCourse;
 
+  /// No description provided for @editCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Course'**
+  String get editCourse;
+
   /// No description provided for @settings.
   ///
   /// In en, this message translates to:

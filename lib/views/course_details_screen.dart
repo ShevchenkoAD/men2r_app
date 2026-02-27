@@ -45,9 +45,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(_isEditing ? l10n.addCourse : l10n.courseDetails),  
+        title: Text(_isEditing ? l10n.editCourse : l10n.courseDetails),  
         actions: [
-           
           IconButton(
             icon: Icon(_isEditing ? Icons.close : Icons.edit),
             onPressed: () {

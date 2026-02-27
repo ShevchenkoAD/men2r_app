@@ -15,6 +15,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get addCourse => 'Добавить курс';
 
   @override
+  String get editCourse => 'Изменить курс';
+
+  @override
   String get settings => 'Настройки';
 
   @override
