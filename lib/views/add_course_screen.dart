@@ -28,36 +28,40 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
           children: [
             TextField(controller: _titleController, decoration: InputDecoration(labelText: l10n.title)),
             TextField(controller: _descController, decoration: InputDecoration(labelText: l10n.description)),
-            Expanded(
-              child: TextField(
-                controller: _dateController, 
-                decoration: InputDecoration(labelText: l10n.date),
-                readOnly: true,
-                onTap: () async {
-                  DateTime? pickedDate = await showDatePicker(
-                      context: context, initialDate: DateTime.now(),
-                      firstDate: DateTime(2000), lastDate: DateTime(2101));
-                  if (pickedDate != null) {
-                    setState(() => _dateController.text = pickedDate.toString().split(' ')[0]);
-                  }
-                },
-              ),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton( 
-              onPressed: () {
-                if (_titleController.text.isNotEmpty && _dateController.text.isNotEmpty) {
-                  Provider.of<DbController>(context, listen: false).addCourse(
-                    Course(
-                      title: _titleController.text,
-                      description: _descController.text,
-                      date: _dateController.text,
-                    ),
-                  );
-                  Navigator.pop(context);
+            TextField(
+              controller: _dateController, 
+              decoration: InputDecoration(labelText: l10n.date),
+              readOnly: true,
+              onTap: () async {
+                DateTime? pickedDate = await showDatePicker(
+                    context: context, initialDate: DateTime.now(),
+                    firstDate: DateTime(2000), lastDate: DateTime(2101));
+                if (pickedDate != null) {
+                  setState(() => _dateController.text = pickedDate.toString().split(' ')[0]);
                 }
               },
-              child: Text(l10n.save),
+            ),
+            Expanded(child: const SizedBox(height: 20)),
+            SizedBox(
+              width: double.infinity,
+              child: 
+              ElevatedButton.icon(
+                  onPressed: () {                    
+                    if (_titleController.text.isNotEmpty && _dateController.text.isNotEmpty) {
+                    Provider.of<DbController>(context, listen: false).addCourse(
+                      Course(
+                        title: _titleController.text,
+                        description: _descController.text,
+                        date: _dateController.text,
+                      ),
+                    );
+                    Navigator.pop(context);
+                    }
+                  },
+                  icon: const Icon(Icons.save),
+                  label: Text(l10n.save),
+                  style: ElevatedButton.styleFrom(padding: const EdgeInsets.all(15)),
+                ),
             )
           ],
         ),

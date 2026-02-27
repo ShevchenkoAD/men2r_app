@@ -109,17 +109,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
-                  onPressed: () {
-                     
+                  onPressed: () {                    
                     final updatedCourse = Course(
                       id: widget.course.id,  
                       title: _titleController.text,
                       description: _descController.text,
                       date: _dateController.text,
                     );
-                    dbProvider.updateCourse(updatedCourse);
-                    
-                     
+                    dbProvider.updateCourse(updatedCourse);           
                     Navigator.pop(context); 
                   },
                   icon: const Icon(Icons.save),
@@ -134,15 +131,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
               const SizedBox(height: 40),
               SizedBox(
                 width: double.infinity,
-                child: OutlinedButton.icon(
-                  style: OutlinedButton.styleFrom(foregroundColor: Colors.red),
-                  onPressed: () {
+                child: 
+                ElevatedButton.icon(
+                  onPressed: () {                    
                     dbProvider.deleteCourse(widget.course.id!);
                     Navigator.pop(context);
                   },
                   icon: const Icon(Icons.delete),
                   label: Text(l10n.delete),
+                  style: ElevatedButton.styleFrom(padding: const EdgeInsets.all(15)),
                 ),
+              
               ),
             ]
           ],
