@@ -1,0 +1,14 @@
+{
+  "appTitle": "men2r",
+  "addCourse": "Add Course",
+  "settings": "Settings",
+  "darkTheme": "Dark Theme",
+  "language": "Language",
+  "title": "Title",
+  "description": "Description",
+  "date": "Date",
+  "save": "Save",
+  "delete": "Delete",
+  "courseDetails": "Course Details",
+  "emptyList": "Course List is Empty"
+}

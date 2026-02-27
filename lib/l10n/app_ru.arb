@@ -1,0 +1,14 @@
+{
+  "appTitle": "men2r",
+  "addCourse": "Добавить курс",
+  "settings": "Настройки",
+  "darkTheme": "Темная тема",
+  "language": "Язык",
+  "title": "Название",
+  "description": "Описание",
+  "date": "Дата",
+  "save": "Сохранить",
+  "delete": "Удалить",
+  "courseDetails": "Детали курса",
+  "emptyList": "Список курсов пуст"
+}
