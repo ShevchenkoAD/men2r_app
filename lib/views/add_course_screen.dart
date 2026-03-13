@@ -40,7 +40,7 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
                   setState(() => _dateController.text = pickedDate.toString().split(' ')[0]);
                 }
               },
-            ),
+0            ),
             Expanded(child: const SizedBox(height: 20)),
             SizedBox(
               width: double.infinity,
@@ -48,15 +48,33 @@ class _AddCourseScreenState extends State<AddCourseScreen> {
               ElevatedButton.icon(
                   onPressed: () {                    
                     if (_titleController.text.isNotEmpty && _dateController.text.isNotEmpty) {
-                    Provider.of<DbController>(context, listen: false).addCourse(
-                      Course(
-                        title: _titleController.text,
-                        description: _descController.text,
-                        date: _dateController.text,
-                      ),
-                    );
-                    Navigator.pop(context);
-                    }
+                      Provider.of<DbController>(context, listen: false).addCourse(
+                        Course(
+                          title: _titleController.text,
+                          description: _descController.text,
+                          date: _dateController.text,
+                        ),
+                      );
+                      Navigator.pop(context);
+                    } else {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text(l10n.error),
+                                content: Text(l10n.courseInvalidErrorMessage),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                    };
                   },
                   icon: const Icon(Icons.save),
                   label: Text(l10n.save),

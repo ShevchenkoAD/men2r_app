@@ -175,6 +175,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Course List is Empty'**
   String get emptyList;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
+
+  /// No description provided for @courseInvalidErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Title and Date Can\'t Be Empty'**
+  String get courseInvalidErrorMessage;
 }
 
 class _AppLocalizationsDelegate

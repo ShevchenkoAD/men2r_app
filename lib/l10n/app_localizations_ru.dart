@@ -45,5 +45,12 @@ class AppLocalizationsRu extends AppLocalizations {
   String get courseDetails => 'Детали курса';
 
   @override
-  String get emptyList => 'Список курсов пуст';
+  String get emptyList => 'Список Курсов Пуст';
+
+  @override
+  String get error => 'Ошибка';
+
+  @override
+  String get courseInvalidErrorMessage =>
+      'Название и Дата не Могут Быть Пустыми';
 }

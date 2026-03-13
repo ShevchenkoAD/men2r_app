@@ -11,5 +11,7 @@
   "save": "Сохранить",
   "delete": "Удалить",
   "courseDetails": "Детали курса",
-  "emptyList": "Список курсов пуст"
+  "emptyList": "Список Курсов Пуст",
+  "error": "Ошибка",
+  "courseInvalidErrorMessage": "Название и Дата не Могут Быть Пустыми"
 }

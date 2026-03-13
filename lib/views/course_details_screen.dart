@@ -69,7 +69,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (!_isEditing) ...[
-               
               Text(widget.course.title, style: Theme.of(context).textTheme.headlineMedium),
               const SizedBox(height: 10),
               Text("${l10n.date}: ${widget.course.date}", style: const TextStyle(fontStyle: FontStyle.italic)),
@@ -108,8 +107,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
-                  onPressed: () {                    
-                    final updatedCourse = Course(
+                  onPressed: () {
+                    if (_titleController.text.isNotEmpty && _dateController.text.isNotEmpty) {
+                      final updatedCourse = Course(
                       id: widget.course.id,  
                       title: _titleController.text,
                       description: _descController.text,
@@ -117,6 +117,25 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     );
                     dbProvider.updateCourse(updatedCourse);           
                     Navigator.pop(context); 
+                    } else {
+                      showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text(l10n.error),
+                                content: Text(l10n.courseInvalidErrorMessage),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                    }
                   },
                   icon: const Icon(Icons.save),
                   label: Text(l10n.save),
@@ -124,7 +143,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 ),
               ),
             ],
-            
              
             if (!_isEditing) ...[
               const SizedBox(height: 40),

@@ -46,4 +46,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get emptyList => 'Course List is Empty';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get courseInvalidErrorMessage => 'Title and Date Can\'t Be Empty';
 }

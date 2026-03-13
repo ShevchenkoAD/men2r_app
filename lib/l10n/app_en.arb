@@ -11,5 +11,7 @@
   "save": "Save",
   "delete": "Delete",
   "courseDetails": "Course Details",
-  "emptyList": "Course List is Empty"
+  "emptyList": "Course List is Empty",
+  "error": "Error",
+  "courseInvalidErrorMessage": "Title and Date Can't Be Empty"
 }
