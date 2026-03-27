@@ -1,26 +1,52 @@
-class Course {
-  final int? id;
-  final String title;
-  final String description;
-  final String date;
+import 'package:hive/hive.dart';
 
-  Course({this.id, required this.title, required this.description, required this.date});
+part 'course.g.dart';
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'title': title,
-      'description': description,
-      'date': date,
-    };
-  }
+@HiveType(typeId: 1)
+class Course extends HiveObject {
+  @HiveField(0)
+  late int serverId;
 
-  factory Course.fromMap(Map<String, dynamic> map) {
-    return Course(
-      id: map['id'],
-      title: map['title'],
-      description: map['description'],
-      date: map['date'],
-    );
-  }
+  @HiveField(1)
+  late String title;
+
+  @HiveField(2)
+  late String description;
+
+  @HiveField(3)
+  late String startDate;
+
+  @HiveField(4)
+  late String endDate;
+
+  @HiveField(5)
+  late int tutorId;
+
+  @HiveField(6)
+  late int hours;
+
+  @HiveField(7)
+  late double price;
+
+  Course({
+    required this.serverId,
+    required this.title,
+    required this.description,
+    required this.startDate,
+    required this.endDate,
+    required this.tutorId,
+    required this.hours,
+    required this.price,
+  });
+
+  factory Course.fromJson(Map<String, dynamic> json) => Course(
+    serverId: json['id'],
+    title: json['title'],
+    description: json['description'],
+    startDate: json['startDate'],
+    endDate: json['endDate'],
+    tutorId: json['tutorId'],
+    hours: json['hours'],
+    price: (json['price'] as num).toDouble(),
+  );
 }

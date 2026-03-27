@@ -98,95 +98,269 @@ abstract class AppLocalizations {
     Locale('ru'),
   ];
 
-  /// No description provided for @appTitle.
+  /// No description provided for @app_tittle.
   ///
   /// In en, this message translates to:
   /// **'men2r'**
-  String get appTitle;
+  String get app_tittle;
 
-  /// No description provided for @addCourse.
-  ///
-  /// In en, this message translates to:
-  /// **'Add Course'**
-  String get addCourse;
-
-  /// No description provided for @editCourse.
-  ///
-  /// In en, this message translates to:
-  /// **'Edit Course'**
-  String get editCourse;
-
-  /// No description provided for @settings.
+  /// No description provided for @settings_title.
   ///
   /// In en, this message translates to:
   /// **'Settings'**
-  String get settings;
+  String get settings_title;
 
-  /// No description provided for @darkTheme.
+  /// No description provided for @settings_menu_title.
   ///
   /// In en, this message translates to:
-  /// **'Dark Theme'**
-  String get darkTheme;
+  /// **'Settings'**
+  String get settings_menu_title;
 
-  /// No description provided for @language.
+  /// No description provided for @settings_theme_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Toggle theme'**
+  String get settings_theme_title;
+
+  /// No description provided for @settings_theme_dark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get settings_theme_dark;
+
+  /// No description provided for @settings_theme_light.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get settings_theme_light;
+
+  /// No description provided for @settings_language.
   ///
   /// In en, this message translates to:
   /// **'Language'**
-  String get language;
+  String get settings_language;
 
-  /// No description provided for @title.
+  /// No description provided for @settings_language_ru.
   ///
   /// In en, this message translates to:
-  /// **'Title'**
-  String get title;
+  /// **'Russian'**
+  String get settings_language_ru;
 
-  /// No description provided for @description.
+  /// No description provided for @settings_language_en.
   ///
   /// In en, this message translates to:
-  /// **'Description'**
-  String get description;
+  /// **'English'**
+  String get settings_language_en;
 
-  /// No description provided for @date.
+  /// No description provided for @settings_role.
   ///
   /// In en, this message translates to:
-  /// **'Date'**
-  String get date;
+  /// **'Role'**
+  String get settings_role;
 
-  /// No description provided for @save.
+  /// No description provided for @settings_role_admin.
+  ///
+  /// In en, this message translates to:
+  /// **'Admin'**
+  String get settings_role_admin;
+
+  /// No description provided for @settings_role_student.
+  ///
+  /// In en, this message translates to:
+  /// **'Student'**
+  String get settings_role_student;
+
+  /// No description provided for @generic_save.
   ///
   /// In en, this message translates to:
   /// **'Save'**
-  String get save;
+  String get generic_save;
 
-  /// No description provided for @delete.
+  /// No description provided for @generic_delete.
   ///
   /// In en, this message translates to:
   /// **'Delete'**
-  String get delete;
+  String get generic_delete;
 
-  /// No description provided for @courseDetails.
+  /// No description provided for @generic_edit.
   ///
   /// In en, this message translates to:
-  /// **'Course Details'**
-  String get courseDetails;
+  /// **'Edit'**
+  String get generic_edit;
 
-  /// No description provided for @emptyList.
+  /// No description provided for @generic_time_hours.
   ///
   /// In en, this message translates to:
-  /// **'Course List is Empty'**
-  String get emptyList;
+  /// **'h.'**
+  String get generic_time_hours;
 
-  /// No description provided for @error.
+  /// No description provided for @generic_time_years.
   ///
   /// In en, this message translates to:
-  /// **'Error'**
-  String get error;
+  /// **'y.'**
+  String get generic_time_years;
 
-  /// No description provided for @courseInvalidErrorMessage.
+  /// No description provided for @generic_currency_byn.
   ///
   /// In en, this message translates to:
-  /// **'Title and Date Can\'t Be Empty'**
-  String get courseInvalidErrorMessage;
+  /// **'byn'**
+  String get generic_currency_byn;
+
+  /// No description provided for @tutor_menu_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Tutors'**
+  String get tutor_menu_title;
+
+  /// No description provided for @tutor_list_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Tutors'**
+  String get tutor_list_title;
+
+  /// No description provided for @tutor_details_screen_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed information'**
+  String get tutor_details_screen_title;
+
+  /// No description provided for @tutor_details_id.
+  ///
+  /// In en, this message translates to:
+  /// **'ID'**
+  String get tutor_details_id;
+
+  /// No description provided for @tutor_details_firstname.
+  ///
+  /// In en, this message translates to:
+  /// **'Firstname'**
+  String get tutor_details_firstname;
+
+  /// No description provided for @tutor_details_lastname.
+  ///
+  /// In en, this message translates to:
+  /// **'Lastname'**
+  String get tutor_details_lastname;
+
+  /// No description provided for @tutor_details_patronymic.
+  ///
+  /// In en, this message translates to:
+  /// **'Patronymic'**
+  String get tutor_details_patronymic;
+
+  /// No description provided for @tutor_details_experience.
+  ///
+  /// In en, this message translates to:
+  /// **'Experience'**
+  String get tutor_details_experience;
+
+  /// No description provided for @tutor_details_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get tutor_details_description;
+
+  /// No description provided for @tutor_details_subjects.
+  ///
+  /// In en, this message translates to:
+  /// **'Subjects taught'**
+  String get tutor_details_subjects;
+
+  /// No description provided for @tutor_form_edit_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit tutor'**
+  String get tutor_form_edit_title;
+
+  /// No description provided for @tutor_form_create_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Create tutor'**
+  String get tutor_form_create_title;
+
+  /// No description provided for @course_menu_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Courses'**
+  String get course_menu_title;
+
+  /// No description provided for @course_list_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Courses'**
+  String get course_list_title;
+
+  /// No description provided for @course_details_screen_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed information'**
+  String get course_details_screen_title;
+
+  /// No description provided for @course_details_id.
+  ///
+  /// In en, this message translates to:
+  /// **'ID'**
+  String get course_details_id;
+
+  /// No description provided for @course_details_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get course_details_title;
+
+  /// No description provided for @course_details_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get course_details_description;
+
+  /// No description provided for @course_details_start_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Start date of training'**
+  String get course_details_start_date;
+
+  /// No description provided for @course_details_end_date.
+  ///
+  /// In en, this message translates to:
+  /// **'End date of training'**
+  String get course_details_end_date;
+
+  /// No description provided for @course_details_hours.
+  ///
+  /// In en, this message translates to:
+  /// **'Training hours'**
+  String get course_details_hours;
+
+  /// No description provided for @course_details_price.
+  ///
+  /// In en, this message translates to:
+  /// **'Price of training'**
+  String get course_details_price;
+
+  /// No description provided for @course_details_tutor.
+  ///
+  /// In en, this message translates to:
+  /// **'Tutor'**
+  String get course_details_tutor;
+
+  /// No description provided for @course_details_date_period.
+  ///
+  /// In en, this message translates to:
+  /// **'Training period'**
+  String get course_details_date_period;
+
+  /// No description provided for @course_form_edit_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit course'**
+  String get course_form_edit_title;
+
+  /// No description provided for @course_form_create_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Create course'**
+  String get course_form_create_title;
 }
 
 class _AppLocalizationsDelegate

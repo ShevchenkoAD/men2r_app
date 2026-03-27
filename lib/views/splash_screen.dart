@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:men2r_app/l10n/app_localizations.dart';
-import 'home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,12 +13,14 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+      Navigator.pushReplacementNamed(context, '/courses'); 
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: Colors.blueAccent,
       body: Center(
@@ -28,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             Icon(Icons.school, size: 100, color: Colors.white),
             SizedBox(height: 20),
-            Text(AppLocalizations.of(context)!.appTitle, style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
+            Text(l10n.app_tittle, style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
           ],
         ),
       ),
