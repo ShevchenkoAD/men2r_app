@@ -13,7 +13,8 @@ class CourseFormScreen extends StatefulWidget {
 }
 
 class _CourseFormScreenState extends State<CourseFormScreen> {
-  final _formKey = GlobalKey<FormState>();
+ final _formKey = GlobalKey<FormState>();
+  
   late TextEditingController _titleCtrl;
   late TextEditingController _descCtrl;
   late TextEditingController _priceCtrl;
@@ -26,38 +27,49 @@ class _CourseFormScreenState extends State<CourseFormScreen> {
   DateTime? _endDate;
 
   final DateFormat _dateFormat = DateFormat('dd.MM.yyyy');
+  
+  bool _initialized = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Создаём контроллеры заранее (пустые)
+    _titleCtrl = TextEditingController();
+    _descCtrl = TextEditingController();
+    _priceCtrl = TextEditingController();
+    _hoursCtrl = TextEditingController();
+    _startCtrl = TextEditingController();
+    _endCtrl = TextEditingController();
+  }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final args = ModalRoute.of(context)!.settings.arguments;
-    if (args is Course && _existing == null) {
-      _existing = args;
-      _titleCtrl = TextEditingController(text: args.title);
-      _descCtrl = TextEditingController(text: args.description);
-      _priceCtrl = TextEditingController(text: args.price.toString());
-      _hoursCtrl = TextEditingController(text: args.hours.toString());
-      if (args.startDate.isNotEmpty) {
-        _startDate = DateTime.tryParse(args.startDate!);
-      }
-      if (args.endDate.isNotEmpty) {
-        _endDate = DateTime.tryParse(args.endDate!);
-      }
-    } else if (_existing == null) {
-      _titleCtrl = TextEditingController();
-      _descCtrl = TextEditingController();
-      _priceCtrl = TextEditingController();
-      _hoursCtrl = TextEditingController();
-      _startDate = DateTime.now();
-      _endDate = DateTime.now().add(const Duration(days: 30));
-    }
 
-    _startCtrl = TextEditingController(
-      text: _startDate != null ? _dateFormat.format(_startDate!) : '',
-    );
-    _endCtrl = TextEditingController(
-      text: _endDate != null ? _dateFormat.format(_endDate!) : '',
-    );
+    if (!_initialized) {
+      final args = ModalRoute.of(context)!.settings.arguments;
+      if (args is Course) {
+        _existing = args;
+        _titleCtrl.text = args.title;
+        _descCtrl.text = args.description;
+        _priceCtrl.text = args.price.toString();
+        _hoursCtrl.text = args.hours.toString();
+        if (args.startDate.isNotEmpty) {
+          _startDate = DateTime.tryParse(args.startDate!);
+        }
+        if (args.endDate.isNotEmpty) {
+          _endDate = DateTime.tryParse(args.endDate!);
+        }
+      } else {
+        _startDate = DateTime.now();
+        _endDate = DateTime.now().add(const Duration(days: 30));
+      }
+
+      _startCtrl.text = _startDate != null ? _dateFormat.format(_startDate!) : '';
+      _endCtrl.text = _endDate != null ? _dateFormat.format(_endDate!) : '';
+      
+      _initialized = true;
+    }
   }
 
   @override
@@ -102,6 +114,9 @@ class _CourseFormScreenState extends State<CourseFormScreen> {
   }
 
   void _onSave() async {
+    final startUtc = _startDate?.toUtc();
+    final endUtc = _endDate?.toUtc();
+
     if (_formKey.currentState!.validate()) {
       final course = Course(
         serverId: _existing?.serverId ?? 0,
@@ -109,8 +124,8 @@ class _CourseFormScreenState extends State<CourseFormScreen> {
         description: _descCtrl.text,
         price: double.tryParse(_priceCtrl.text) ?? 0.0,
         hours: int.tryParse(_hoursCtrl.text) ?? 0,
-        startDate: _startDate?.toIso8601String() ?? '',
-        endDate: _endDate?.toIso8601String() ?? '',
+        startDate: startUtc?.toIso8601String() ?? '',
+        endDate: endUtc?.toIso8601String() ?? '',
         tutorId: _existing?.tutorId ?? 1,
       );
 
@@ -134,6 +149,7 @@ class _CourseFormScreenState extends State<CourseFormScreen> {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text(_existing == null ? l10n.course_form_create_title : l10n.course_form_edit_title),
         actions: _existing != null
@@ -147,63 +163,68 @@ class _CourseFormScreenState extends State<CourseFormScreen> {
       ),
       body: Form(
         key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _titleCtrl,
-                decoration: InputDecoration(labelText: l10n.course_details_title),
-              ),
-              TextFormField(
-                controller: _descCtrl,
-                decoration: InputDecoration(labelText: l10n.course_details_description),
-                maxLines: 4,
-               
-              ),
-              TextFormField(
-                controller: _priceCtrl,
-                decoration: InputDecoration(labelText: l10n.course_details_price),
-                keyboardType: TextInputType.number,
-              ),
-              TextFormField(
-                controller: _hoursCtrl,
-                decoration: InputDecoration(labelText: l10n.course_details_hours),
-                keyboardType: TextInputType.number,
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _startCtrl,
-                decoration: InputDecoration(
-                  labelText: l10n.course_details_start_date,
-                  suffixIcon: Icon(Icons.calendar_today),
+        child: CustomScrollView(
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.all(16.0),
+              sliver: SliverFillRemaining(
+                hasScrollBody: false,
+                child: Column(  
+                  children: [
+                    TextFormField(
+                      controller: _titleCtrl,
+                      decoration: InputDecoration(labelText: l10n.course_details_title),
+                    ),
+                    TextFormField(
+                      controller: _descCtrl,
+                      decoration: InputDecoration(labelText: l10n.course_details_description),
+                      maxLines: 4,
+                    
+                    ),
+                    TextFormField(
+                      controller: _priceCtrl,
+                      decoration: InputDecoration(labelText: l10n.course_details_price),
+                      keyboardType: TextInputType.number,
+                    ),
+                    TextFormField(
+                      controller: _hoursCtrl,
+                      decoration: InputDecoration(labelText: l10n.course_details_hours),
+                      keyboardType: TextInputType.number,
+                    ),
+                    TextFormField(
+                      controller: _startCtrl,
+                      decoration: InputDecoration(
+                        labelText: l10n.course_details_start_date,
+                        suffixIcon: Icon(Icons.calendar_today),
+                      ),
+                      readOnly: true,
+                      onTap: () => _selectDate(context, true, _startDate),       
+                    ),
+                    TextFormField(
+                      controller: _endCtrl,
+                      decoration: InputDecoration(
+                        labelText: l10n.course_details_end_date,
+                        suffixIcon: Icon(Icons.calendar_today),
+                      ),
+                      readOnly: true,
+                      onTap: () => _selectDate(context, false, _endDate),
+                    ),
+                    const Spacer(),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: _onSave,
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                        ),
+                        child: Text(_existing == null ? l10n.generic_save : l10n.generic_edit),
+                      ),
+                    ),
+                  ],
                 ),
-                readOnly: true,
-                onTap: () => _selectDate(context, true, _startDate),       
               ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _endCtrl,
-                decoration: InputDecoration(
-                  labelText: l10n.course_details_end_date,
-                  suffixIcon: Icon(Icons.calendar_today),
-                ),
-                readOnly: true,
-                onTap: () => _selectDate(context, false, _endDate),
-              ),
-              Expanded(child: const SizedBox(height: 0)),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: _onSave,
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                  ),
-                  child: Text(_existing == null ? l10n.generic_save : l10n.generic_edit),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

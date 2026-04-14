@@ -79,6 +79,7 @@ class _TutorFormScreenState extends State<TutorFormScreen> {
 
       if (ok && mounted) Navigator.pop(context);
     } else {
+
       setState(() {
         _autovalidateMode = AutovalidateMode.onUserInteraction;
       });
@@ -111,73 +112,80 @@ class _TutorFormScreenState extends State<TutorFormScreen> {
       body: Form(
         key: _formKey,
         autovalidateMode: _autovalidateMode,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _lastNameCtrl,
-                decoration: InputDecoration(
-                  labelText: l10n.tutor_details_lastname,
-                  prefixIcon: Icon(Icons.person),
+        child: CustomScrollView(
+          slivers: [ 
+            SliverPadding(
+              padding: const EdgeInsets.all(16.0),
+              sliver: SliverFillRemaining(
+                hasScrollBody: false,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: _lastNameCtrl,
+                      decoration: InputDecoration(
+                        labelText: l10n.tutor_details_lastname,
+                        prefixIcon: Icon(Icons.person),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    TextFormField(
+                      controller: _firstNameCtrl,
+                      decoration: InputDecoration(
+                        labelText: l10n.tutor_details_firstname,
+                        prefixIcon: Icon(Icons.person),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    TextFormField(
+                      controller: _patronymicCtrl,
+                      decoration: InputDecoration(
+                        labelText: l10n.tutor_details_patronymic,
+                        prefixIcon: Icon(Icons.person_outline),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    TextFormField(
+                      controller: _experienceCtrl,
+                      decoration: InputDecoration(
+                        labelText: l10n.tutor_details_experience,
+                        prefixIcon: Icon(Icons.work),
+                      ),
+                      keyboardType: TextInputType.number,
+                    ),
+                    const SizedBox(height: 12),
+                    TextFormField(
+                      controller: _subjectsCtrl,
+                      decoration: InputDecoration(
+                        labelText: l10n.tutor_details_subjects,
+                        prefixIcon: Icon(Icons.school),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    TextFormField(
+                      controller: _descriptionCtrl,
+                      decoration: InputDecoration(
+                        labelText: l10n.tutor_details_description,
+                        prefixIcon: Icon(Icons.description),
+                        alignLabelWithHint: true,
+                      ),
+                      maxLines: 3,
+                    ),
+                    const Spacer(),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: _onSave,
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                        ),
+                        child: Text(_existing == null ? l10n.generic_save : l10n.generic_edit),
+                      ),
+                    ),  
+                  ]
                 ),
               ),
-              const SizedBox(height: 12),
-              TextFormField(
-                controller: _firstNameCtrl,
-                decoration: InputDecoration(
-                  labelText: l10n.tutor_details_firstname,
-                  prefixIcon: Icon(Icons.person),
-                ),
-              ),
-              const SizedBox(height: 12),
-              TextFormField(
-                controller: _patronymicCtrl,
-                decoration: InputDecoration(
-                  labelText: l10n.tutor_details_patronymic,
-                  prefixIcon: Icon(Icons.person_outline),
-                ),
-              ),
-              const SizedBox(height: 12),
-              TextFormField(
-                controller: _experienceCtrl,
-                decoration: InputDecoration(
-                  labelText: l10n.tutor_details_experience,
-                  prefixIcon: Icon(Icons.work),
-                ),
-                keyboardType: TextInputType.number,
-              ),
-              const SizedBox(height: 12),
-              TextFormField(
-                controller: _subjectsCtrl,
-                decoration: InputDecoration(
-                  labelText: l10n.tutor_details_subjects,
-                  prefixIcon: Icon(Icons.school),
-                ),
-              ),
-              const SizedBox(height: 12),
-              TextFormField(
-                controller: _descriptionCtrl,
-                decoration: InputDecoration(
-                  labelText: l10n.tutor_details_description,
-                  prefixIcon: Icon(Icons.description),
-                  alignLabelWithHint: true,
-                ),
-                maxLines: 3,
-              ),
-              Expanded(child: const SizedBox(height: 0)),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: _onSave,
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                  ),
-                  child: Text(_existing == null ? l10n.generic_save : l10n.generic_edit),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
