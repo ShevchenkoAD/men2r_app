@@ -5,7 +5,7 @@ import '../services/connectivity_service.dart';
 
 class CourseRepository {
   final ApiService _api = ApiService();
-  final HiveService _db = HiveService(); 
+  final HiveService _cache = HiveService(); 
   final ConnectivityService _connectivity = ConnectivityService();
 
   Future<List<Course>> getAllCourses() async {
@@ -15,13 +15,13 @@ class CourseRepository {
       try {
         final List<dynamic> jsonList = await _api.fetchCourses();
         final List<Course> remoteCourses = jsonList.map((e) => Course.fromJson(e)).toList();
-        await _db.syncCourses(remoteCourses);
+        await _cache.syncCourses(remoteCourses);
         return remoteCourses;
       } catch (e) {
-        return await _db.getCourses();
+        return await _cache.getCourses();
       }
     } else {
-      return await _db.getCourses();
+      return await _cache.getCourses();
     }
   }
 
@@ -30,7 +30,7 @@ class CourseRepository {
       try {
         final jsonResponse = await _api.createCourse(course);
         final savedCourse = Course.fromJson(jsonResponse);
-        await _db.putCourse(savedCourse);
+        await _cache.putCourse(savedCourse);
       } catch (e) {
         rethrow;
       }
@@ -43,7 +43,7 @@ class CourseRepository {
     if (await _connectivity.isConnected()) {
       try {
         await _api.updateCourse(course);
-        await _db.putCourse(course);
+        await _cache.putCourse(course);
       } catch (e) {
         rethrow;
       }
@@ -56,7 +56,7 @@ class CourseRepository {
     if (await _connectivity.isConnected()) {
       try {
         await _api.deleteCourse(serverId);
-        await _db.deleteCourse(serverId);
+        await _cache.deleteCourse(serverId);
       } catch (e) {
         rethrow;
       }

@@ -5,7 +5,7 @@ import '../services/connectivity_service.dart';
 
 class TutorRepository {
   final ApiService _api = ApiService();
- final HiveService _db = HiveService();
+  final HiveService _cache = HiveService();
   final ConnectivityService _connectivity = ConnectivityService();
 
   
@@ -17,16 +17,15 @@ class TutorRepository {
         final List<dynamic> jsonList = await _api.fetchTutors();
         final List<Tutor> remoteTutors = jsonList.map((e) => Tutor.fromJson(e)).toList();
 
-        
-        await _db.syncTutors(remoteTutors);
+        await _cache.syncTutors(remoteTutors);
         return remoteTutors;
       } catch (e) {
         
-        return await _db.getTutors();
+        return await _cache.getTutors();
       }
     } else {
       
-      return await _db.getTutors();
+      return await _cache.getTutors();
     }
   }
 
@@ -36,7 +35,7 @@ class TutorRepository {
       try {
         final jsonResponse = await _api.createTutor(tutor);
         final savedTutor = Tutor.fromJson(jsonResponse);
-        await _db.putTutor(savedTutor);
+        await _cache.putTutor(savedTutor);
       } catch (e) {
         
         rethrow; 
@@ -51,7 +50,7 @@ class TutorRepository {
     if (await _connectivity.isConnected()) {
       try {
         await _api.updateTutor(tutor);
-        await _db.putTutor(tutor);
+        await _cache.putTutor(tutor);
       } catch (e) {
         rethrow;
       }
@@ -65,7 +64,7 @@ class TutorRepository {
     if (await _connectivity.isConnected()) {
       try {
         await _api.deleteTutor(serverId);
-        await _db.deleteTutor(serverId);
+        await _cache.deleteTutor(serverId);
       } catch (e) {
         rethrow;
       }

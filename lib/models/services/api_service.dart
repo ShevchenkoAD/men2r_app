@@ -4,11 +4,10 @@ import '../course.dart';
 
 class ApiService {
   final Dio _dio = Dio(BaseOptions(
-    baseUrl: 'http://qlipx-37-45-209-54.a.free.pinggy.link/api/v1.0',
+    baseUrl: 'http://yamix-178-163-148-234.run.pinggy-free.link/api/v1.0',
     connectTimeout: const Duration(seconds: 5),
   ));
 
-  
 
   Future<List<dynamic>> fetchTutors() async {
     final response = await _dio.get('/tutors');
@@ -43,8 +42,6 @@ class ApiService {
   Future<void> deleteTutor(int serverId) async {
     await _dio.delete('/tutors/$serverId');
   }
-
-  
 
   Future<List<dynamic>> fetchCourses() async {
     final response = await _dio.get('/courses');
