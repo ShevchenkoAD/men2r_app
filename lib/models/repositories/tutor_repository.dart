@@ -35,7 +35,7 @@ class TutorRepository {
     }
   }
 
-  /
+  
   Future<List<Tutor>> _getOfflineTutors(int? subjectId, String? sortBy, String? sortOrder) async {
     List<Tutor> all = await _cache.getTutors();
 

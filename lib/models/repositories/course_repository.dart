@@ -47,7 +47,7 @@ class CourseRepository {
     }
   }
 
-  /
+  
   Future<List<Course>> _getOfflineCourses(
     int? subjectId,
     double? minPrice,
