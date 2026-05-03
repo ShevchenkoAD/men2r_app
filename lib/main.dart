@@ -5,12 +5,15 @@ import 'package:men2r_app/l10n/app_localizations.dart';
 
 
 import 'models/services/hive_service.dart';
+import 'models/services/notification_service.dart';
+
 
 import 'controllers/theme_controller.dart';
 import 'controllers/locale_controller.dart';
 import 'controllers/role_controller.dart';
 import 'controllers/course_controller.dart';
 import 'controllers/tutor_controller.dart';
+import 'controllers/subject_controller.dart'; 
 
 
 import 'views/splash_screen.dart';
@@ -22,9 +25,15 @@ import 'views/tutors/tutor_list_page.dart';
 import 'views/tutors/tutor_details_screen.dart';
 import 'views/tutors/tutor_form_screen.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  
+  final notificationService = NotificationService();
+  await notificationService.init();
+  
   
   final hiveService = HiveService();
   await hiveService.init();
@@ -37,6 +46,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => RoleController()),
         ChangeNotifierProvider(create: (_) => CourseController()),
         ChangeNotifierProvider(create: (_) => TutorController()),
+        ChangeNotifierProvider(create: (_) => SubjectController()), 
         Provider.value(value: hiveService), 
       ],
       child: const MyApp(),
@@ -55,7 +65,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       themeMode: themeCtrl.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-      theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
+      ),
       darkTheme: ThemeData.dark(useMaterial3: true),
       locale: localeCtrl.locale,
       
@@ -70,7 +83,7 @@ class MyApp extends StatelessWidget {
         Locale('ru', ''),
       ],
 
-      
+      navigatorKey: navigatorKey,
       initialRoute: '/', 
       routes: {
         '/': (context) => const SplashScreen(),
@@ -81,7 +94,6 @@ class MyApp extends StatelessWidget {
         '/tutor_add': (context) => const TutorFormScreen(),
       },
 
-      
       onGenerateRoute: (settings) {
         if (settings.name == '/course_details') {
           return MaterialPageRoute(builder: (_) => const CourseDetailsScreen(), settings: settings);

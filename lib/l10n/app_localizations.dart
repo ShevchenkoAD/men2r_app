@@ -206,6 +206,30 @@ abstract class AppLocalizations {
   /// **'byn'**
   String get generic_currency_byn;
 
+  /// No description provided for @generic_succes_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Success'**
+  String get generic_succes_message;
+
+  /// No description provided for @generic_remind_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Remind'**
+  String get generic_remind_message;
+
+  /// No description provided for @generic_api_error.
+  ///
+  /// In en, this message translates to:
+  /// **'API Error'**
+  String get generic_api_error;
+
+  /// No description provided for @generic_field_required_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Field is required'**
+  String get generic_field_required_error;
+
   /// No description provided for @tutor_menu_title.
   ///
   /// In en, this message translates to:
@@ -277,6 +301,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Create tutor'**
   String get tutor_form_create_title;
+
+  /// No description provided for @tutor_form_subject_count.
+  ///
+  /// In en, this message translates to:
+  /// **'Subj.'**
+  String get tutor_form_subject_count;
+
+  /// No description provided for @tutor_form_select_subject_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Select subjects'**
+  String get tutor_form_select_subject_title;
 
   /// No description provided for @course_menu_title.
   ///
@@ -361,6 +397,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Create course'**
   String get course_form_create_title;
+
+  /// No description provided for @filter_sort_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter and sort'**
+  String get filter_sort_title;
+
+  /// No description provided for @filter_sort_course_by_price.
+  ///
+  /// In en, this message translates to:
+  /// **'By price'**
+  String get filter_sort_course_by_price;
+
+  /// No description provided for @filter_sort_course_by_hours.
+  ///
+  /// In en, this message translates to:
+  /// **'By hours'**
+  String get filter_sort_course_by_hours;
+
+  /// No description provided for @filter_sort_reset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset filter & sort'**
+  String get filter_sort_reset;
+
+  /// No description provided for @filter_sort_direction.
+  ///
+  /// In en, this message translates to:
+  /// **'Sort direction'**
+  String get filter_sort_direction;
+
+  /// No description provided for @notification_channel_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Course Reminders'**
+  String get notification_channel_name;
+
+  /// No description provided for @notification_channel_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications about your online courses starting'**
+  String get notification_channel_desc;
+
+  /// No description provided for @notification_title_start.
+  ///
+  /// In en, this message translates to:
+  /// **'Course starting soon!'**
+  String get notification_title_start;
+
+  /// No description provided for @notification_body_start.
+  ///
+  /// In en, this message translates to:
+  /// **'Course \"{title}\" will start at {time}'**
+  String notification_body_start(Object time, Object title);
+
+  /// No description provided for @notification_title_end.
+  ///
+  /// In en, this message translates to:
+  /// **'Course ending soon!'**
+  String get notification_title_end;
+
+  /// No description provided for @notification_body_end.
+  ///
+  /// In en, this message translates to:
+  /// **'Course \"{title}\" will end at {time}'**
+  String notification_body_end(Object time, Object title);
 }
 
 class _AppLocalizationsDelegate

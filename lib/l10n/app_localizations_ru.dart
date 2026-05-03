@@ -63,6 +63,18 @@ class AppLocalizationsRu extends AppLocalizations {
   String get generic_currency_byn => 'бун';
 
   @override
+  String get generic_succes_message => 'Успех';
+
+  @override
+  String get generic_remind_message => 'Напоминание';
+
+  @override
+  String get generic_api_error => 'Ошибка API';
+
+  @override
+  String get generic_field_required_error => 'Необходимо ввести поле';
+
+  @override
   String get tutor_menu_title => 'Репетиторы';
 
   @override
@@ -97,6 +109,12 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get tutor_form_create_title => 'Создание репетитора';
+
+  @override
+  String get tutor_form_subject_count => 'Предм.';
+
+  @override
+  String get tutor_form_select_subject_title => 'Выбрать предметы';
 
   @override
   String get course_menu_title => 'Курсы';
@@ -139,4 +157,42 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get course_form_create_title => 'Создание курса';
+
+  @override
+  String get filter_sort_title => 'Фильтрация и сортировка';
+
+  @override
+  String get filter_sort_course_by_price => 'По цене';
+
+  @override
+  String get filter_sort_course_by_hours => 'По часам обучения';
+
+  @override
+  String get filter_sort_reset => 'Сбросить фильтры и сортировку';
+
+  @override
+  String get filter_sort_direction => 'Направление сортировки';
+
+  @override
+  String get notification_channel_name => 'Напоминания о курсах';
+
+  @override
+  String get notification_channel_desc =>
+      'Уведомления о начале ваших онлайн-курсов';
+
+  @override
+  String get notification_title_start => 'Скоро начало курса!';
+
+  @override
+  String notification_body_start(Object time, Object title) {
+    return 'Курс \"$title\" начнется в $time';
+  }
+
+  @override
+  String get notification_title_end => 'Скоро конец курса!';
+
+  @override
+  String notification_body_end(Object time, Object title) {
+    return 'Курс \"$title\" закончится в $time';
+  }
 }

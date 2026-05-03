@@ -1,8 +1,9 @@
 import 'package:hive/hive.dart';
+import 'subject.dart'; 
 
 part 'tutor.g.dart';
 
-@HiveType(typeId: 2)
+@HiveType(typeId: 0)
 class Tutor extends HiveObject {
   @HiveField(0)
   late int serverId;
@@ -23,7 +24,10 @@ class Tutor extends HiveObject {
   late String description;
 
   @HiveField(6)
-  late String subjects;
+  String? imageUrl; 
+
+  @HiveField(7)
+  List<Subject>? subjects;
 
   Tutor({
     required this.serverId,
@@ -32,7 +36,8 @@ class Tutor extends HiveObject {
     this.patronymic,
     required this.experience,
     required this.description,
-    required this.subjects,
+    this.imageUrl,
+    this.subjects,
   });
 
   factory Tutor.fromJson(Map<String, dynamic> json) => Tutor(
@@ -42,6 +47,10 @@ class Tutor extends HiveObject {
     patronymic: json['patronymic'],
     experience: json['experience'],
     description: json['description'],
-    subjects: json['subjects'],
+    imageUrl: json['imageUrl'],
+ 
+    subjects: (json['subjects'] as List?)
+        ?.map((s) => Subject.fromJson(s))
+        .toList(),
   );
 }

@@ -1,3 +1,4 @@
+import 'dart:io';
 import '../tutor.dart';
 import '../services/api_service.dart';
 import '../services/hive_service.dart';
@@ -8,66 +9,95 @@ class TutorRepository {
   final HiveService _cache = HiveService();
   final ConnectivityService _connectivity = ConnectivityService();
 
-  
-  Future<List<Tutor>> getAllTutors() async {
+  Future<List<Tutor>> getAllTutors({int? subjectId, String? sortBy, String? sortOrder}) async {
     bool isOnline = await _connectivity.isConnected();
 
     if (isOnline) {
       try {
-        final List<dynamic> jsonList = await _api.fetchTutors();
-        final List<Tutor> remoteTutors = jsonList.map((e) => Tutor.fromJson(e)).toList();
-
-        await _cache.syncTutors(remoteTutors);
-        return remoteTutors;
-      } catch (e) {
         
-        return await _cache.getTutors();
+        final fullJson = await _api.fetchTutors();
+        final List<Tutor> allTutors = fullJson.map((e) => Tutor.fromJson(e)).toList();
+        await _cache.syncTutors(allTutors);
+
+        
+        final filteredJson = await _api.fetchTutors(
+          subjectId: subjectId, 
+          sortBy: sortBy, 
+          sortOrder: sortOrder
+        );
+        return filteredJson.map((e) => Tutor.fromJson(e)).toList();
+      } catch (e) {
+        return _getOfflineTutors(subjectId, sortBy, sortOrder);
       }
     } else {
       
-      return await _cache.getTutors();
+      return _getOfflineTutors(subjectId, sortBy, sortOrder);
     }
   }
 
-  
-  Future<void> addTutor(Tutor tutor) async {
-    if (await _connectivity.isConnected()) {
-      try {
-        final jsonResponse = await _api.createTutor(tutor);
-        final savedTutor = Tutor.fromJson(jsonResponse);
-        await _cache.putTutor(savedTutor);
-      } catch (e) {
+  /
+  Future<List<Tutor>> _getOfflineTutors(int? subjectId, String? sortBy, String? sortOrder) async {
+    List<Tutor> all = await _cache.getTutors();
+
+    
+    if (subjectId != null) {
+      all = all.where((t) => t.subjects?.any((s) => s.id == subjectId) ?? false).toList();
+    }
+
+    
+    all.sort((a, b) {
+      int cmp;
+      if (sortBy == 'experience') {
+        cmp = a.experience.compareTo(b.experience);
+      } else {
         
-        rethrow; 
+        cmp = a.lastname.compareTo(b.lastname);
       }
-    } else {
-      throw Exception("error_no_internet");
-    }
+      return (sortOrder == 'desc') ? -cmp : cmp;
+    });
+
+    return all;
   }
 
-  
-  Future<void> updateTutor(Tutor tutor) async {
+  Future<void> addTutor(Tutor tutor, List<int> subjectIds, File? imageFile) async {
     if (await _connectivity.isConnected()) {
-      try {
-        await _api.updateTutor(tutor);
-        await _cache.putTutor(tutor);
-      } catch (e) {
-        rethrow;
+      final jsonResponse = await _api.createTutor(tutor, subjectIds);
+      final int serverId = jsonResponse['id'];
+
+      if (imageFile != null) {
+        final updatedJson = await _api.uploadTutorPhoto(serverId, imageFile);
+        await _cache.putTutor(Tutor.fromJson(updatedJson));
+      } else {
+        await _cache.putTutor(Tutor.fromJson(jsonResponse));
       }
     } else {
       throw Exception("error_no_internet");
     }
   }
 
-  
+Future<void> updateTutor(Tutor tutor, List<int> subjectIds, File? imageFile) async {
+    if (await _connectivity.isConnected()) {
+      
+      await _api.updateTutor(tutor, subjectIds);
+
+      
+      if (imageFile != null) {
+        final updatedJson = await _api.uploadTutorPhoto(tutor.serverId, imageFile);
+        
+        await _cache.putTutor(Tutor.fromJson(updatedJson));
+      } else {
+        
+        await _cache.putTutor(tutor);
+      }
+    } else {
+      throw Exception("error_no_internet");
+    }
+  }
+
   Future<void> deleteTutor(int serverId) async {
     if (await _connectivity.isConnected()) {
-      try {
-        await _api.deleteTutor(serverId);
-        await _cache.deleteTutor(serverId);
-      } catch (e) {
-        rethrow;
-      }
+      await _api.deleteTutor(serverId);
+      await _cache.deleteTutor(serverId);
     } else {
       throw Exception("error_no_internet");
     }

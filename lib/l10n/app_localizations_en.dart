@@ -63,6 +63,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get generic_currency_byn => 'byn';
 
   @override
+  String get generic_succes_message => 'Success';
+
+  @override
+  String get generic_remind_message => 'Remind';
+
+  @override
+  String get generic_api_error => 'API Error';
+
+  @override
+  String get generic_field_required_error => 'Field is required';
+
+  @override
   String get tutor_menu_title => 'Tutors';
 
   @override
@@ -97,6 +109,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tutor_form_create_title => 'Create tutor';
+
+  @override
+  String get tutor_form_subject_count => 'Subj.';
+
+  @override
+  String get tutor_form_select_subject_title => 'Select subjects';
 
   @override
   String get course_menu_title => 'Courses';
@@ -139,4 +157,42 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get course_form_create_title => 'Create course';
+
+  @override
+  String get filter_sort_title => 'Filter and sort';
+
+  @override
+  String get filter_sort_course_by_price => 'By price';
+
+  @override
+  String get filter_sort_course_by_hours => 'By hours';
+
+  @override
+  String get filter_sort_reset => 'Reset filter & sort';
+
+  @override
+  String get filter_sort_direction => 'Sort direction';
+
+  @override
+  String get notification_channel_name => 'Course Reminders';
+
+  @override
+  String get notification_channel_desc =>
+      'Notifications about your online courses starting';
+
+  @override
+  String get notification_title_start => 'Course starting soon!';
+
+  @override
+  String notification_body_start(Object time, Object title) {
+    return 'Course \"$title\" will start at $time';
+  }
+
+  @override
+  String get notification_title_end => 'Course ending soon!';
+
+  @override
+  String notification_body_end(Object time, Object title) {
+    return 'Course \"$title\" will end at $time';
+  }
 }

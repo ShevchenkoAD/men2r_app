@@ -1,22 +1,38 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import '../tutor.dart';
 import '../course.dart';
+import '../subject.dart'; 
 
 class HiveService {
   static const String tutorBoxName = 'tutors_box';
   static const String courseBoxName = 'courses_box';
+  static const String subjectBoxName = 'subjects_box'; 
 
-  
   Future<void> init() async {
     await Hive.initFlutter();
     
     
     Hive.registerAdapter(TutorAdapter());
     Hive.registerAdapter(CourseAdapter());
+    Hive.registerAdapter(SubjectAdapter()); 
 
     
     await Hive.openBox<Tutor>(tutorBoxName);
     await Hive.openBox<Course>(courseBoxName);
+    await Hive.openBox<Subject>(subjectBoxName); 
+  }
+
+  
+  
+  Box<Subject> get _subjectBox => Hive.box<Subject>(subjectBoxName);
+
+  Future<List<Subject>> getSubjects() async => _subjectBox.values.toList();
+
+  Future<void> syncSubjects(List<Subject> subjects) async {
+    await _subjectBox.clear();
+    
+    Map<int, Subject> map = {for (var s in subjects) s.id: s};
+    await _subjectBox.putAll(map);
   }
 
   
@@ -27,7 +43,6 @@ class HiveService {
 
   Future<void> syncTutors(List<Tutor> tutors) async {
     await _tutorBox.clear();
-    
     Map<int, Tutor> map = {for (var t in tutors) t.serverId: t};
     await _tutorBox.putAll(map);
   }
@@ -58,5 +73,12 @@ class HiveService {
 
   Future<void> deleteCourse(int serverId) async {
     await _courseBox.delete(serverId);
+  }
+
+  
+  Future<void> clearAllData() async {
+    await _tutorBox.clear();
+    await _courseBox.clear();
+    await _subjectBox.clear();
   }
 }

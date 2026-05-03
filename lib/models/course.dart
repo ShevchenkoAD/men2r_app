@@ -28,6 +28,9 @@ class Course extends HiveObject {
   @HiveField(7)
   late double price;
 
+  @HiveField(8)
+  late int subjectId;
+
   Course({
     required this.serverId,
     required this.title,
@@ -37,6 +40,7 @@ class Course extends HiveObject {
     required this.tutorId,
     required this.hours,
     required this.price,
+    required this.subjectId,
   });
 
   factory Course.fromJson(Map<String, dynamic> json) => Course(
@@ -48,5 +52,6 @@ class Course extends HiveObject {
     tutorId: json['tutorId'],
     hours: json['hours'],
     price: (json['price'] as num).toDouble(),
+    subjectId: json['subjectId'],
   );
 }

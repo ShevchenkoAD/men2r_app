@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:men2r_app/l10n/app_localizations.dart';
 import '../../models/course.dart';
+import '../../models/services/notification_service.dart'; 
 
 class CourseDetailsScreen extends StatelessWidget {
   const CourseDetailsScreen({super.key});
@@ -9,6 +10,7 @@ class CourseDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final course = ModalRoute.of(context)!.settings.arguments as Course;
     final l10n = AppLocalizations.of(context)!;
+    final NotificationService _notificationService = NotificationService();
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.course_details_screen_title)),
@@ -20,16 +22,19 @@ class CourseDetailsScreen extends StatelessWidget {
             Text(course.title, style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
             Card(
+              elevation: 0,
+              color: Colors.blue.shade50,
               child: ListTile(
-                leading: const Icon(Icons.calendar_today),
+                leading: const Icon(Icons.calendar_today, color: Colors.blue),
                 title: Text(l10n.course_details_date_period),
                 subtitle: Text("${course.startDate.split('T')[0]} — ${course.endDate.split('T')[0]}"),
               ),
             ),
-            Text(l10n.course_details_description, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            const SizedBox(height: 15),
+            Text(l10n.course_details_description, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             const SizedBox(height: 8),
             Text(course.description, style: const TextStyle(fontSize: 16)),
-            const Divider(),
+            const Divider(height: 30),
             Row(
               children: [
                 Chip(label: Text("${course.hours} ${l10n.generic_time_hours}"), backgroundColor: Colors.blue.shade100),
@@ -38,6 +43,21 @@ class CourseDetailsScreen extends StatelessWidget {
               ],
             ),
             const Spacer(),
+            
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                onPressed: () async {
+                  await _notificationService.scheduleCourseReminders(course);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(l10n.generic_succes_message)),
+                  );
+                },
+                icon: const Icon(Icons.notifications_active),
+                label: Text(l10n.generic_remind_message),
+                style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 12)),
+              ),
+            ),
           ],
         ),
       ),

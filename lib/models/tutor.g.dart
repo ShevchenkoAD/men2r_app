@@ -8,7 +8,7 @@ part of 'tutor.dart';
 
 class TutorAdapter extends TypeAdapter<Tutor> {
   @override
-  final int typeId = 2;
+  final int typeId = 0;
 
   @override
   Tutor read(BinaryReader reader) {
@@ -20,17 +20,18 @@ class TutorAdapter extends TypeAdapter<Tutor> {
       serverId: fields[0] as int,
       lastname: fields[1] as String,
       firstname: fields[2] as String,
-      patronymic: fields[3] as String,
+      patronymic: fields[3] as String?,
       experience: fields[4] as int,
       description: fields[5] as String,
-      subjects: fields[6] as String,
+      imageUrl: fields[6] as String?,
+      subjects: (fields[7] as List?)?.cast<Subject>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Tutor obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.serverId)
       ..writeByte(1)
@@ -44,6 +45,8 @@ class TutorAdapter extends TypeAdapter<Tutor> {
       ..writeByte(5)
       ..write(obj.description)
       ..writeByte(6)
+      ..write(obj.imageUrl)
+      ..writeByte(7)
       ..write(obj.subjects);
   }
 
