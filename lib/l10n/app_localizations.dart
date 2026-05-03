@@ -104,6 +104,66 @@ abstract class AppLocalizations {
   /// **'men2r'**
   String get app_tittle;
 
+  /// No description provided for @auth_login_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get auth_login_title;
+
+  /// No description provided for @auth_register_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration'**
+  String get auth_register_title;
+
+  /// No description provided for @auth_field_login.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get auth_field_login;
+
+  /// No description provided for @auth_field_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get auth_field_password;
+
+  /// No description provided for @auth_btn_login.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In'**
+  String get auth_btn_login;
+
+  /// No description provided for @auth_btn_register.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign Up'**
+  String get auth_btn_register;
+
+  /// No description provided for @auth_no_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t have an account? Register'**
+  String get auth_no_account;
+
+  /// No description provided for @auth_have_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? Login'**
+  String get auth_have_account;
+
+  /// No description provided for @auth_error_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid login or password'**
+  String get auth_error_invalid;
+
+  /// No description provided for @auth_logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get auth_logout;
+
   /// No description provided for @settings_title.
   ///
   /// In en, this message translates to:
@@ -463,6 +523,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Course \"{title}\" will end at {time}'**
   String notification_body_end(Object time, Object title);
+
+  /// No description provided for @image_source_camera.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get image_source_camera;
+
+  /// No description provided for @image_source_gallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get image_source_gallery;
+
+  /// No description provided for @share_course_subject.
+  ///
+  /// In en, this message translates to:
+  /// **'Course Recommendation'**
+  String get share_course_subject;
+
+  /// No description provided for @share_course_text.
+  ///
+  /// In en, this message translates to:
+  /// **'Check out course \"{title}\" on men2r_app!\nPrice: {price} BYN.\nDuration: {hours} h.'**
+  String share_course_text(Object hours, Object price, Object title);
+
+  /// No description provided for @share_tutor_subject.
+  ///
+  /// In en, this message translates to:
+  /// **'Tutor Recommendation'**
+  String get share_tutor_subject;
+
+  /// No description provided for @share_tutor_text.
+  ///
+  /// In en, this message translates to:
+  /// **'I recommend a great tutor: {name}!\nSpecialization: {subjects}\nExperience: {exp} years.'**
+  String share_tutor_text(Object exp, Object name, Object subjects);
 }
 
 class _AppLocalizationsDelegate

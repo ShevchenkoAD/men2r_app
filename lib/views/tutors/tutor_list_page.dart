@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:men2r_app/controllers/auth_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:men2r_app/l10n/app_localizations.dart';
 import '../../controllers/tutor_controller.dart';
 import '../../controllers/subject_controller.dart';
-import '../../controllers/role_controller.dart';
 import '../widgets/tutor_card.dart';
 import '../widgets/app_drawer.dart';
 
@@ -125,7 +125,8 @@ class _TutorListPageState extends State<TutorListPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final tutorCtrl = context.watch<TutorController>();
-    final roleCtrl = context.watch<RoleController>();
+    final auth = context.watch<AuthController>();
+    final bool isAdmin = auth.role == 'ADMIN';
 
     return Scaffold(
       appBar: AppBar(
@@ -167,7 +168,7 @@ class _TutorListPageState extends State<TutorListPage> {
                         tutor: tutorCtrl.tutors[i],
                         onTap: () => Navigator.pushNamed(
                           context, 
-                          roleCtrl.isAdmin ? '/tutor_form' : '/tutor_details', 
+                          isAdmin ? '/tutor_form' : '/tutor_details', 
                           arguments: tutorCtrl.tutors[i]
                         ),
                       ),
@@ -176,7 +177,7 @@ class _TutorListPageState extends State<TutorListPage> {
           ),
         ],
       ),
-      floatingActionButton: roleCtrl.isAdmin
+      floatingActionButton: isAdmin
           ? FloatingActionButton(
               onPressed: () => Navigator.pushNamed(context, '/tutor_add'), 
               child: const Icon(Icons.add),

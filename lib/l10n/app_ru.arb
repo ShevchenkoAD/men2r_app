@@ -1,6 +1,17 @@
 {
   "app_tittle": "men2r",
 
+  "auth_login_title"     : "Вход",
+  "auth_register_title"  : "Регистрация",
+  "auth_field_login"     : "Логин",
+  "auth_field_password"  : "Пароль",
+  "auth_btn_login"       : "Войти",
+  "auth_btn_register"    : "Создать аккаунт",
+  "auth_no_account"      : "Нет аккаунта? Зарегистрироваться",
+  "auth_have_account"    : "Уже есть аккаунт? Войти",
+  "auth_error_invalid"   : "Неверный логин или пароль",
+  "auth_logout"          : "Выйти",
+
   "settings_title"       : "Настройки",
   "settings_menu_title"  : "Настройки",
   "settings_theme_title" : "Переключение темы",
@@ -67,6 +78,13 @@
   "notification_title_start" : "Скоро начало курса!",
   "notification_body_start"  : "Курс \"{title}\" начнется в {time}",
   "notification_title_end"   : "Скоро конец курса!",
-  "notification_body_end"    : "Курс \"{title}\" закончится в {time}"
+  "notification_body_end"    : "Курс \"{title}\" закончится в {time}",
+
+  "image_source_camera" : "Камера",
+  "image_source_gallery": "Галерея",
+  "share_course_subject": "Рекомендация курса",
+  "share_course_text"   : "Зацени курс \"{title}\" на платформе men2r_app!\nЦена: {price} BYN.\nДлительность: {hours} ч.",
+  "share_tutor_subject" : "Рекомендация репетитора",
+  "share_tutor_text"    : "Рекомендую отличного репетитора: {name}!\nСпециализация: {subjects}\nОпыт: {exp} лет."
 } 
 

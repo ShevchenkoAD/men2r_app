@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:men2r_app/controllers/auth_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:men2r_app/l10n/app_localizations.dart';
-import '../../controllers/role_controller.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -9,17 +9,20 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final roleCtrl = context.watch<RoleController>();
+    final auth = context.watch<AuthController>();
 
     return Drawer(
       child: Column(
         children: [
-          UserAccountsDrawerHeader(
-            accountName: Text(roleCtrl.isAdmin ? l10n.settings_role_admin : l10n.settings_role_student),
-            accountEmail: const Text("user@men2r.app"),
+          UserAccountsDrawerHeader(    
+            accountName: Text(auth.userName ?? 'Guest'), 
+            accountEmail: Text(auth.role ?? ''),
             currentAccountPicture: CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Icon(roleCtrl.isAdmin ? Icons.admin_panel_settings : Icons.person),
+              child: Text(
+                (auth.userName != null && auth.userName!.isNotEmpty)
+                    ? auth.userName![0].toUpperCase()
+                    : 'U',
+              ),
             ),
           ),
           ListTile(

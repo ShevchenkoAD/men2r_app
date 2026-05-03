@@ -12,6 +12,36 @@ class AppLocalizationsRu extends AppLocalizations {
   String get app_tittle => 'men2r';
 
   @override
+  String get auth_login_title => 'Вход';
+
+  @override
+  String get auth_register_title => 'Регистрация';
+
+  @override
+  String get auth_field_login => 'Логин';
+
+  @override
+  String get auth_field_password => 'Пароль';
+
+  @override
+  String get auth_btn_login => 'Войти';
+
+  @override
+  String get auth_btn_register => 'Создать аккаунт';
+
+  @override
+  String get auth_no_account => 'Нет аккаунта? Зарегистрироваться';
+
+  @override
+  String get auth_have_account => 'Уже есть аккаунт? Войти';
+
+  @override
+  String get auth_error_invalid => 'Неверный логин или пароль';
+
+  @override
+  String get auth_logout => 'Выйти';
+
+  @override
   String get settings_title => 'Настройки';
 
   @override
@@ -194,5 +224,27 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String notification_body_end(Object time, Object title) {
     return 'Курс \"$title\" закончится в $time';
+  }
+
+  @override
+  String get image_source_camera => 'Камера';
+
+  @override
+  String get image_source_gallery => 'Галерея';
+
+  @override
+  String get share_course_subject => 'Рекомендация курса';
+
+  @override
+  String share_course_text(Object hours, Object price, Object title) {
+    return 'Зацени курс \"$title\" на платформе men2r_app!\nЦена: $price BYN.\nДлительность: $hours ч.';
+  }
+
+  @override
+  String get share_tutor_subject => 'Рекомендация репетитора';
+
+  @override
+  String share_tutor_text(Object exp, Object name, Object subjects) {
+    return 'Рекомендую отличного репетитора: $name!\nСпециализация: $subjects\nОпыт: $exp лет.';
   }
 }

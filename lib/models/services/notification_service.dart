@@ -3,7 +3,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:men2r_app/l10n/app_localizations.dart'; 
-import '../course.dart'; // Путь к модели курса
+import '../course.dart'; 
 import '../../main.dart'; 
 
 class NotificationService {
@@ -41,17 +41,16 @@ class NotificationService {
         ?.requestNotificationsPermission();
   }
 
-  /// Общий приватный метод для планирования уведомления
   Future<void> _schedule({
     required int id,
     required String title,
     required String body,
     required DateTime targetDate,
   }) async {
-    // Напоминаем за 1 час до события
+    
     final DateTime scheduledTime = targetDate.subtract(const Duration(hours: 1));
 
-    // Если время напоминания уже в прошлом, не планируем
+    
     if (scheduledTime.isBefore(DateTime.now())) return;
 
     final tz.TZDateTime tzScheduledDate = tz.TZDateTime.from(scheduledTime, tz.local);
@@ -59,7 +58,7 @@ class NotificationService {
 
     const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
       'course_reminders_channel',
-      'Course Notifications', // Это имя можно вынести в l10n.notification_channel_name
+      'Course Notifications', 
       importance: Importance.max,
       priority: Priority.high,
     );
@@ -74,7 +73,6 @@ class NotificationService {
     );
   }
 
-  /// Планирование ДВУХ уведомлений для курса
   Future<void> scheduleCourseReminders(Course course) async {
     final l10n = _getL10n();
     
@@ -84,7 +82,7 @@ class NotificationService {
     final String startFmt = "${startTime.hour}:${startTime.minute.toString().padLeft(2, '0')}";
     final String endFmt = "${endTime.hour}:${endTime.minute.toString().padLeft(2, '0')}";
 
-    // 1. Уведомление на начало (ID = serverId * 2)
+    
     await _schedule(
       id: course.serverId * 2,
       title: l10n.notification_title_start,
@@ -92,7 +90,7 @@ class NotificationService {
       targetDate: startTime,
     );
 
-    // 2. Уведомление на конец (ID = serverId * 2 + 1)
+    
     await _schedule(
       id: (course.serverId * 2) + 1,
       title: l10n.notification_title_end,
@@ -101,7 +99,6 @@ class NotificationService {
     );
   }
 
-  /// Отмена уведомлений для конкретного курса
   Future<void> cancelCourseNotifications(int serverId) async {
     await _notifications.cancel(id: serverId * 2);
     await _notifications.cancel(id: (serverId * 2) + 1);

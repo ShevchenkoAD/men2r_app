@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:men2r_app/controllers/auth_controller.dart';
+import 'package:men2r_app/models/services/signalr_service.dart';
+import 'package:men2r_app/views/auth_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:men2r_app/l10n/app_localizations.dart';
@@ -10,7 +13,6 @@ import 'models/services/notification_service.dart';
 
 import 'controllers/theme_controller.dart';
 import 'controllers/locale_controller.dart';
-import 'controllers/role_controller.dart';
 import 'controllers/course_controller.dart';
 import 'controllers/tutor_controller.dart';
 import 'controllers/subject_controller.dart'; 
@@ -30,10 +32,8 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  
   final notificationService = NotificationService();
   await notificationService.init();
-  
   
   final hiveService = HiveService();
   await hiveService.init();
@@ -43,11 +43,11 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeController()),
         ChangeNotifierProvider(create: (_) => LocaleController()),
-        ChangeNotifierProvider(create: (_) => RoleController()),
+        ChangeNotifierProvider(create: (_) => AuthController()),
         ChangeNotifierProvider(create: (_) => CourseController()),
         ChangeNotifierProvider(create: (_) => TutorController()),
-        ChangeNotifierProvider(create: (_) => SubjectController()), 
-        Provider.value(value: hiveService), 
+        ChangeNotifierProvider(create: (_) => SubjectController()),
+        Provider(create: (_) => SignalRService()), 
       ],
       child: const MyApp(),
     ),
@@ -88,6 +88,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const SplashScreen(),
         '/courses': (context) => const CourseListPage(),
+        '/auth': (context) => const AuthScreen(),
         '/tutors': (context) => const TutorListPage(),
         '/settings': (context) => const SettingsScreen(),
         '/course_add': (context) => const CourseFormScreen(),

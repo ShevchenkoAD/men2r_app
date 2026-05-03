@@ -12,6 +12,36 @@ class AppLocalizationsEn extends AppLocalizations {
   String get app_tittle => 'men2r';
 
   @override
+  String get auth_login_title => 'Login';
+
+  @override
+  String get auth_register_title => 'Registration';
+
+  @override
+  String get auth_field_login => 'Username';
+
+  @override
+  String get auth_field_password => 'Password';
+
+  @override
+  String get auth_btn_login => 'Sign In';
+
+  @override
+  String get auth_btn_register => 'Sign Up';
+
+  @override
+  String get auth_no_account => 'Don\'t have an account? Register';
+
+  @override
+  String get auth_have_account => 'Already have an account? Login';
+
+  @override
+  String get auth_error_invalid => 'Invalid login or password';
+
+  @override
+  String get auth_logout => 'Logout';
+
+  @override
   String get settings_title => 'Settings';
 
   @override
@@ -194,5 +224,27 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String notification_body_end(Object time, Object title) {
     return 'Course \"$title\" will end at $time';
+  }
+
+  @override
+  String get image_source_camera => 'Camera';
+
+  @override
+  String get image_source_gallery => 'Gallery';
+
+  @override
+  String get share_course_subject => 'Course Recommendation';
+
+  @override
+  String share_course_text(Object hours, Object price, Object title) {
+    return 'Check out course \"$title\" on men2r_app!\nPrice: $price BYN.\nDuration: $hours h.';
+  }
+
+  @override
+  String get share_tutor_subject => 'Tutor Recommendation';
+
+  @override
+  String share_tutor_text(Object exp, Object name, Object subjects) {
+    return 'I recommend a great tutor: $name!\nSpecialization: $subjects\nExperience: $exp years.';
   }
 }

@@ -1,6 +1,17 @@
 {
   "app_tittle": "men2r",
 
+  "auth_login_title"    : "Login",
+  "auth_register_title" : "Registration",
+  "auth_field_login"    : "Username",
+  "auth_field_password" : "Password",
+  "auth_btn_login"      : "Sign In",
+  "auth_btn_register"   : "Sign Up",
+  "auth_no_account"     : "Don't have an account? Register",
+  "auth_have_account"   : "Already have an account? Login",
+  "auth_error_invalid"  : "Invalid login or password",
+  "auth_logout"         : "Logout",
+
   "settings_title"       : "Settings",
   "settings_menu_title"  : "Settings",
   "settings_theme_title" : "Toggle theme",
@@ -68,5 +79,12 @@
   "notification_title_start" : "Course starting soon!",
   "notification_body_start"  : "Course \"{title}\" will start at {time}",
   "notification_title_end"   : "Course ending soon!",
-  "notification_body_end"    : "Course \"{title}\" will end at {time}"
+  "notification_body_end"    : "Course \"{title}\" will end at {time}",
+
+  "image_source_camera" : "Camera",
+  "image_source_gallery": "Gallery",
+  "share_course_subject": "Course Recommendation",
+  "share_course_text"   : "Check out course \"{title}\" on men2r_app!\nPrice: {price} BYN.\nDuration: {hours} h.",
+  "share_tutor_subject" : "Tutor Recommendation",
+  "share_tutor_text"      : "I recommend a great tutor: {name}!\nSpecialization: {subjects}\nExperience: {exp} years."
 }

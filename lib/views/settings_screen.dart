@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:men2r_app/controllers/auth_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:men2r_app/l10n/app_localizations.dart';
-import '../controllers/theme_controller.dart';
-import '../controllers/locale_controller.dart';
-import '../controllers/role_controller.dart';
+import 'package:men2r_app/controllers/theme_controller.dart';
+import 'package:men2r_app/controllers/locale_controller.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -13,8 +13,7 @@ class SettingsScreen extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     final themeCtrl = Provider.of<ThemeController>(context);
     final localeCtrl = Provider.of<LocaleController>(context);
-    final roleCtrl = Provider.of<RoleController>(context);
-
+    final auth = context.watch<AuthController>();
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.settings_title)),
@@ -39,17 +38,21 @@ class SettingsScreen extends StatelessWidget {
           ListTile(
             title: Text(l10n.settings_role, style: const TextStyle(fontWeight: FontWeight.bold)),
           ),
-          RadioListTile<AppUserRole>(
-            title: Text(l10n.settings_role_student),
-            value: AppUserRole.student,
-            groupValue: roleCtrl.role,
-            onChanged: (val) => roleCtrl.setRole(val!),
+          ListTile(
+            title: Text(l10n.settings_role),
+            subtitle: Text(auth.role ?? 'Unknown'), 
+            leading: const Icon(Icons.verified_user),
           ),
-          RadioListTile<AppUserRole>(
-            title: Text(l10n.settings_role_admin),
-            value: AppUserRole.admin,
-            groupValue: roleCtrl.role,
-            onChanged: (val) => roleCtrl.setRole(val!),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.exit_to_app, color: Colors.red),
+            title: Text(l10n.auth_logout, style: const TextStyle(color: Colors.red)),
+            onTap: () async {
+              await auth.logout();
+              if (context.mounted) {
+                Navigator.pushNamedAndRemoveUntil(context, '/auth', (route) => false);
+              }
+            },
           ),
         ],
       ),

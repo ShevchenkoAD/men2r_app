@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:men2r_app/l10n/app_localizations.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../models/tutor.dart';
 
 class TutorDetailsScreen extends StatelessWidget {
@@ -17,7 +18,28 @@ class TutorDetailsScreen extends StatelessWidget {
         : '';
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.tutor_details_screen_title)),
+      appBar: AppBar(
+        title: Text(l10n.tutor_details_screen_title),
+        actions : [
+          IconButton(
+            icon: const Icon(Icons.share),
+            onPressed: () {
+              final String fullName = "${tutor.firstname} ${tutor.lastname}";
+              final String subjects = tutor.subjects?.map((s) => s.name).join(', ') ?? '';
+              
+              
+              
+              final String message = l10n.share_tutor_text(
+                tutor.experience.toString(), 
+                "$fullName",                 
+                subjects,                    
+              );
+
+              Share.share(message, subject: l10n.share_tutor_subject);
+            },
+          )
+        ],
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(

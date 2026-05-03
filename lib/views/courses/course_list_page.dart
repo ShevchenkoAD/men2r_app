@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:men2r_app/controllers/auth_controller.dart';
+import 'package:men2r_app/models/services/signalr_service.dart';
 import 'package:provider/provider.dart';
 import 'package:men2r_app/l10n/app_localizations.dart';
 import '../../controllers/course_controller.dart';
 import '../../controllers/subject_controller.dart';
-import '../../controllers/role_controller.dart';
 import '../widgets/course_card.dart';
 import '../widgets/app_drawer.dart';
 
@@ -30,6 +31,7 @@ class _CourseListPageState extends State<CourseListPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<CourseController>().fetchCourses();
       context.read<SubjectController>().fetchSubjects();
+        context.read<SignalRService>().initSignalR(context);
     });
   }
 
@@ -177,7 +179,8 @@ class _CourseListPageState extends State<CourseListPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final courseCtrl = context.watch<CourseController>();
-    final roleCtrl = context.watch<RoleController>();
+    final auth = context.watch<AuthController>();
+    final bool isAdmin = auth.role == 'ADMIN';
 
     return Scaffold(
       appBar: AppBar(
@@ -218,7 +221,7 @@ class _CourseListPageState extends State<CourseListPage> {
                         course: courseCtrl.courses[index],
                         onTap: () => Navigator.pushNamed(
                           context, 
-                          roleCtrl.isAdmin ? '/course_form' : '/course_details', 
+                          isAdmin ? '/course_form' : '/course_details', 
                           arguments: courseCtrl.courses[index]
                         ),
                       ),
@@ -227,7 +230,7 @@ class _CourseListPageState extends State<CourseListPage> {
           ),
         ],
       ),
-      floatingActionButton: roleCtrl.isAdmin
+      floatingActionButton: isAdmin
           ? FloatingActionButton(onPressed: () => Navigator.pushNamed(context, '/course_add'), child: const Icon(Icons.add))
           : null,
     );

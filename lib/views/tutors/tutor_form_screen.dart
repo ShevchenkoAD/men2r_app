@@ -58,11 +58,46 @@ class _TutorFormScreenState extends State<TutorFormScreen> {
     super.dispose();
   }
 
-  Future<void> _pickImage() async {
+Future<void> _pickImage(ImageSource source) async {
     final picker = ImagePicker();
-    final image = await picker.pickImage(source: ImageSource.gallery, imageQuality: 70);
-    if (image != null) setState(() => _selectedImage = File(image.path));
+    final image = await picker.pickImage(
+      source: source, 
+      imageQuality: 70, 
+      maxWidth: 1000,  
+    );
+    
+    if (image != null) {
+      setState(() => _selectedImage = File(image.path));
+      if (Navigator.canPop(context)) Navigator.pop(context);
+    }
   }
+
+void _showPhotoOptions() {
+  final l10n = AppLocalizations.of(context)!;
+  showModalBottomSheet(
+    context: context,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
+    builder: (context) => Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const SizedBox(height: 10),
+        ListTile(
+          leading: const Icon(Icons.camera_alt),
+          title: Text(l10n.image_source_camera),
+          onTap: () => _pickImage(ImageSource.camera),
+        ),
+        ListTile(
+          leading: const Icon(Icons.photo_library),
+          title: Text(l10n.image_source_gallery),
+          onTap: () => _pickImage(ImageSource.gallery),
+        ),
+        const SizedBox(height: 20),
+      ],
+    ),
+  );
+}
 
   
   void _showSubjectSelection(BuildContext context) {
@@ -171,15 +206,15 @@ void _onSave() async {
                   children: [
                     
                     GestureDetector(
-                      onTap: _pickImage,
+                      onTap: _showPhotoOptions,
                       child: CircleAvatar(
-                        radius: 50,
-                        backgroundColor: Colors.blue.shade50,
+                        radius: 45,
+                        backgroundColor: Colors.grey.shade200,
                         backgroundImage: _selectedImage != null 
                             ? FileImage(_selectedImage!) 
                             : (_existing?.imageUrl != null ? NetworkImage(_existing!.imageUrl!) : null) as ImageProvider?,
                         child: (_selectedImage == null && _existing?.imageUrl == null) 
-                            ? const Icon(Icons.add_a_photo, size: 35, color: Colors.blue) 
+                            ? const Icon(Icons.add_a_photo, size: 30) 
                             : null,
                       ),
                     ),

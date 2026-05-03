@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:men2r_app/l10n/app_localizations.dart';
 import '../../models/course.dart';
 import '../../models/services/notification_service.dart'; 
+import 'package:share_plus/share_plus.dart'; 
 
 class CourseDetailsScreen extends StatelessWidget {
   const CourseDetailsScreen({super.key});
@@ -13,7 +14,24 @@ class CourseDetailsScreen extends StatelessWidget {
     final NotificationService _notificationService = NotificationService();
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.course_details_screen_title)),
+      appBar: AppBar(
+        title: Text(l10n.course_details_screen_title),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.share),
+            onPressed: () {
+            
+              final String message = l10n.share_course_text(
+                course.hours.toString(), 
+                course.price.toString(), 
+                course.title,            
+              );
+
+              Share.share(message, subject: l10n.share_course_subject);
+            },
+          )
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

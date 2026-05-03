@@ -1,16 +1,63 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import '../tutor.dart';
-import '../course.dart';
-import '../subject.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:men2r_app/main.dart';
+import 'package:men2r_app/models/tutor.dart';
+import 'package:men2r_app/models/course.dart';
+import 'package:men2r_app/models/subject.dart';
 
 class ApiService {
-  final Dio _dio = Dio(BaseOptions(
+  final _storage = const FlutterSecureStorage();
+  
+  late final Dio _dio;
+
+  ApiService() {
+    _dio = Dio(BaseOptions(
+      baseUrl: 'http://yatxo-178-121-75-105.run.pinggy-free.link/api/v1.0',
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
+    ));
+
     
-    baseUrl: 'http://cjvoy-178-121-75-105.run.pinggy-free.link/api/v1.0',
-    connectTimeout: const Duration(seconds: 10),
-    receiveTimeout: const Duration(seconds: 10),
-  ));
+    _dio.interceptors.add(InterceptorsWrapper(
+      onRequest: (options, handler) async {
+        final token = await _storage.read(key: 'jwt_token');
+        if (token != null) {
+          options.headers['Authorization'] = 'Bearer $token';
+        }
+        return handler.next(options);
+      },
+      onError: (DioException e, handler) async {
+        if (e.response?.statusCode == 401) {
+          
+          const storage = FlutterSecureStorage();
+          await storage.deleteAll();
+          
+          
+          navigatorKey.currentState?.pushNamedAndRemoveUntil('/auth', (route) => false);
+        }
+        return handler.next(e);
+      },
+    ));
+  }
+
+  
+
+  Future<Map<String, dynamic>> login(String login, String password) async {
+    final response = await _dio.post('/auth/login', data: {
+      "login": login,
+      "password": password,
+    });
+    return response.data; 
+  }
+
+  Future<Map<String, dynamic>> register(String login, String password) async {
+    final response = await _dio.post('/auth/register', data: {
+      "login": login,
+      "password": password,
+    });
+    return response.data;
+  }
 
   
 
@@ -21,7 +68,6 @@ class ApiService {
 
   
 
-  
   Future<List<dynamic>> fetchTutors({int? subjectId, String? sortBy, String? sortOrder}) async {
     final response = await _dio.get('/tutors', queryParameters: {
       if (subjectId != null) 'subjectId': subjectId,
@@ -31,7 +77,6 @@ class ApiService {
     return response.data as List;
   }
 
-  
   Future<Map<String, dynamic>> createTutor(Tutor tutor, List<int> subjectIds) async {
     final response = await _dio.post('/tutors', data: {
       "lastname": tutor.lastname,
@@ -44,7 +89,6 @@ class ApiService {
     return response.data;
   }
 
-  
   Future<Map<String, dynamic>> uploadTutorPhoto(int serverId, File imageFile) async {
     String fileName = imageFile.path.split('/').last;
     FormData formData = FormData.fromMap({
@@ -73,7 +117,6 @@ class ApiService {
 
   
 
-  
   Future<List<dynamic>> fetchCourses({
     int? subjectId,
     double? minPrice,
