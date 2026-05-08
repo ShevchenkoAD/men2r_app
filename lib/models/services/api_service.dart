@@ -13,7 +13,7 @@ class ApiService {
 
   ApiService() {
     _dio = Dio(BaseOptions(
-      baseUrl: 'http://yatxo-178-121-75-105.run.pinggy-free.link/api/v1.0',
+      baseUrl: "http://vhibt-178-121-67-24.run.pinggy-free.link/api/v1.0",
       connectTimeout: const Duration(seconds: 10),
       receiveTimeout: const Duration(seconds: 10),
     ));

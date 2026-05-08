@@ -61,8 +61,9 @@ class _TutorListPageState extends State<TutorListPage> {
           padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(l10n.filter_sort_title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(l10n.filter_sort_title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               const SizedBox(height: 15),
               
               

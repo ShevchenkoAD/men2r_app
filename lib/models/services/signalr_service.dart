@@ -8,7 +8,7 @@ import '../../controllers/tutor_controller.dart';
 
 class SignalRService {
   late HubConnection _hubConnection;
-  final String _hubUrl = "http://yatxo-178-121-75-105.run.pinggy-free.link/api/updates"; 
+  final String _hubUrl = "http://vhibt-178-121-67-24.run.pinggy-free.link/api/updates"; 
 
   
   Future<void> initSignalR(BuildContext context) async {
